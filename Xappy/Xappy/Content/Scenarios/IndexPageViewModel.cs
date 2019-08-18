@@ -1,34 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Forms;
+using Xappy.Content;
 
 namespace Xappy.Scenarios
 {
-    public class IndexPageViewModel : INotifyPropertyChanged
+    public class IndexPageViewModel : BaseViewModel
     {
         private string selectedItem;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void SetAndRaisePropertyChanged<TRef>(
-            ref TRef field, TRef value, [CallerMemberName] string propertyName = null)
-        {
-            field = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected void SetAndRaisePropertyChangedIfDifferentValues<TRef>(
-            ref TRef field, TRef value, [CallerMemberName] string propertyName = null)
-            where TRef : class
-        {
-            if (field == null || !field.Equals(value))
-            {
-                SetAndRaisePropertyChanged(ref field, value, propertyName);
-            }
-        }
 
         public ICommand SelectCommand { get; set; }
 
@@ -45,16 +23,22 @@ namespace Xappy.Scenarios
             string targetPage = "map";
             switch (SelectedItem.ToLower())
             {
+                case "product details":
+                    targetPage = "productdetails";
+                    break;
                 case "map":
                     targetPage = "map";
                     break;
                 case "login":
                     targetPage = "login";
                     break;
+                case "other login":
+                    targetPage = "otherlogin";
+                    break;
                 case "to do list":
                     targetPage = "todo";
                     break;
-                case "conversation":
+                case "conversational":
                     targetPage = "conversation";
                     break;
                 default:
@@ -66,9 +50,10 @@ namespace Xappy.Scenarios
             await Shell.Current.GoToAsync($"{targetPage}");
         }
 
-        public string SelectedItem {
+        public string SelectedItem
+        {
             get => selectedItem;
-            set => SetAndRaisePropertyChanged(ref selectedItem, value);
+            set => SetProperty(ref selectedItem, value);
         }
     }
 

@@ -1,17 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Shell
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Xappy"
+    xmlns:common="clr-namespace:Xappy.Content.Common"
     xmlns:scenarios="clr-namespace:Xappy.Scenarios"
+    xmlns:blog="clr-namespace:Xappy.Content.Blog"
     xmlns:about="clr-namespace:Xappy.About"
     xmlns:controlGallery="clr-namespace:Xappy.ControlGallery"
+    xmlns:working="clr-namespace:Xappy.Content.Scenarios.ProductDetails"
+    xmlns:settings="clr-namespace:Xappy.Content.Settings"
+    xmlns:resources="clr-namespace:Xappy.Content.Resources"
+    FlyoutHeaderTemplate="{DataTemplate common:FlyoutHeaderTemplate}"
+    ItemTemplate="{DataTemplate common:FlyoutItemTemplate}"
     FlyoutBehavior="Flyout"
-    Route=""
-    RouteHost="microsoft.com"
-    RouteScheme="app"
     x:Class="Xappy.AppShell">
-    
+        
     <Shell.FlyoutIcon>
         <FontImageSource
             FontFamily="{StaticResource FontAwesome}"
@@ -20,46 +24,23 @@
             Size="24" />
     </Shell.FlyoutIcon>
     
-    <Shell.FlyoutHeaderTemplate>
-        <DataTemplate>
-            <Grid Padding="20,66,0,40" ColumnSpacing="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-                        Width="20" />
-                    <ColumnDefinition
-                        Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" VerticalOptions="Center" HorizontalOptions="End">
-                    <Image.Source>
-                        <FontImageSource FontFamily="{StaticResource FontAwesome}"
-                                         Glyph="{x:Static local:IconFont.PaintBrush}"
-                                         Color="White"
-                                         Size="16" />
-                    </Image.Source>
-                </Image>
-                <Label
-                    Grid.Column="1"
-                    VerticalOptions="Center"
-                    FontSize="17"
-                    Text="Visual Settings"
-                    TextColor="White" />
-            </Grid>
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
     <FlyoutItem
         Title="Main"
         Style="{DynamicResource CurrentTheme}"
         FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Working File">
+            <ShellContent ContentTemplate="{DataTemplate settings:StyleGuidePage}"/>
+        </Tab>
         <Tab
-            Title="Latest">
+            Title="Latest News">
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesome}"
-                                 Glyph="{x:Static local:IconFont.AddressBook}"
+                                 Glyph="{x:Static local:IconFont.Newspaper}"
                                  Color="White"
                                  Size="14" />
             </Tab.Icon>
             <ShellContent
-                ContentTemplate="{DataTemplate local:MainPage}" />
+                ContentTemplate="{DataTemplate blog:BlogPage}" />
         </Tab>
         <Tab
             Title="UI Controls">
@@ -70,7 +51,7 @@
                                  Size="14" />
             </Tab.Icon>
             <ShellContent
-                ContentTemplate="{DataTemplate controlGallery:ControlPage}" />
+                ContentTemplate="{DataTemplate controlGallery:IndexPage}" />
         </Tab>
         <Tab
             Title="Scenarios">
@@ -92,7 +73,7 @@
                                  Size="14" />
             </Tab.Icon>
             <ShellContent
-                ContentTemplate="{DataTemplate local:MainPage}" />
+                ContentTemplate="{DataTemplate resources:IndexPage}" />
         </Tab>
         <Tab
             Title="About">
@@ -110,29 +91,4 @@
     </FlyoutItem>
     
     
-    <Shell.ItemTemplate>
-        <DataTemplate>
-            <Grid Padding="20,10,0,10" ColumnSpacing="20
-                ">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-                        Width="20" />
-                    <ColumnDefinition
-                        Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image
-                    Grid.Column="0"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center"
-                    Source="{Binding Icon}" />
-                <Label
-                    Grid.Column="1"
-                    VerticalOptions="Center"
-                    Text="{Binding Title}"
-                    TextColor="White"
-                    FontSize="17"
-                    />
-            </Grid>
-        </DataTemplate>
-    </Shell.ItemTemplate>
 </Shell>

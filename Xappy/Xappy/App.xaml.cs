@@ -5,24 +5,21 @@ using Xappy.Domain.Global;
 
 namespace Xappy
 {
-    // This needs Prism :)
     public partial class App : Application
     {
+        public static double ScreenWidth
+        {
+            get
+            {
+                return Device.Info.ScaledScreenSize.Width;
+            }
+        }
+
         public App()
         {
             InitializeComponent();
 
-            DependencyService.Register<AppTheme>();
-
-            InitStyles();
-
             MainPage = new AppShell();
-        }
-
-        private void InitStyles()
-        {
-            var theme = DependencyService.Get<AppTheme>();
-            theme.InitTheme();
         }
 
         protected override void OnStart()
@@ -39,5 +36,19 @@ namespace Xappy
         {
             // Handle when your app resumes
         }
+
+        public static Color LookupColor(string key)
+        {
+            try
+            {
+                Application.Current.Resources.TryGetValue(key, out var newColor);
+                return (Color)newColor;
+            }
+            catch
+            {
+                return Color.White;
+            }
+        }
+
     }
 }
